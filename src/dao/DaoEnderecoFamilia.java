@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Endereco;
 import entity.Usuarios;
 import static factory.Conections.createConnections;
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class DaoEnderecoFamilia {
         Statement st;
         try {
             st = con.createStatement();
-            String sql = "insert into endereçoFamilia(id,endereco) values(" + idEndereco + ",'" + endereco + "')";
+            String sql = "insert into endereçoFamilia(id,endereco) values(" + idEndereco + ",'" + endereco.toUpperCase() + "')";
             st.execute(sql);
 
         } catch (SQLException ex) {
@@ -26,6 +27,31 @@ public class DaoEnderecoFamilia {
 
     }
 
+    public List<Endereco> getEndereco(){
+  
+        List<Endereco> lista = new ArrayList<>();
+        Connection con;
+        con = createConnections();
+        ResultSet rs;
+        Statement st;
+        try {
+            st = con.createStatement();
+            String sql = "select * from endereçoFamilia";
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Endereco endereco = new Endereco();
+                endereco.setId(rs.getInt("id"));
+                endereco.setEndereco(rs.getString("endereco"));
+                
+                lista.add(endereco);
+            }
+        } catch (SQLException ex) {
+            System.out.println("erro a pegar cliente " + ex);
+        }
+       return lista;
+    }
+    
+    
     public String getEndereco(int id) {
         String endereco = null;
         Connection con;
@@ -45,6 +71,21 @@ public class DaoEnderecoFamilia {
             System.out.println("erro a pegar cliente " + ex);
         }
         return endereco;
+    }
+    
+    
+     public void updateEndereco(Endereco endereco){
+        Connection con;
+        con = createConnections();
+        Statement st;
+        try {
+            st = con.createStatement();
+            String sql = "update endereçoFamilia set endereco = '" + endereco.getEndereco() + "' where id = "+endereco.getId()+" ";
+            st.execute(sql);
+           
+        } catch (SQLException ex) {
+            System.out.println("erro ao inserir titular " + ex);
+        }
     }
 
 }

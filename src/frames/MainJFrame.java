@@ -13,6 +13,7 @@ import dao.DaoLimpeza;
 import dao.DaoProdutoHortifruti;
 import entity.Carrinho;
 import entity.Datas;
+import entity.Endereco;
 import entity.ProdutoHigienePessoal;
 import entity.ProdutoHortifruti;
 import entity.ProdutoLimpeza;
@@ -43,6 +44,10 @@ public class MainJFrame extends javax.swing.JFrame {
     boolean controllerBtn;
 
     Object[] rowCarrinho;
+    
+    
+    List<Usuarios> usuariosLista;
+    List<Endereco> enderecoLista;
 
     DaoProdutoPereciveis daoProduto;
     DaoCarrinho daoCarrinho;
@@ -77,6 +82,8 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
+        
+        initComponentDisable();
 
         initDao();
         controllerBtn = true;
@@ -116,9 +123,15 @@ public class MainJFrame extends javax.swing.JFrame {
         getdadosProdutosLimpeza();
         getdadosProdutosSaida();
 
-        getdados();
+        usuariosLista = getdados();
+        enderecoLista = getDadosEndereco();
 
         checkData();
+    }
+    
+    
+    private void initComponentDisable(){
+        jButton_edit_usuario.setEnabled(false);
     }
 
     private void initDao() {
@@ -194,7 +207,21 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jTextField_telefone_ = new javax.swing.JTextField();
         jLabel_endereco_ = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
+        kGradientPanel1 = new keeptoo.KGradientPanel();
+        jTextFieldNameEdit = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabelRg1 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jTextFieldIdadeEdit = new javax.swing.JTextField();
+        jTextField_telefone_Edit = new javax.swing.JTextField();
+        jTextFieldAdressEdit = new javax.swing.JTextField();
+        jTextFieldRgEdit = new javax.swing.JTextField();
+        jLabel54 = new javax.swing.JLabel();
+        jButton_edit_usuario = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
@@ -848,7 +875,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jTextField_telefone_.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel_endereco_.setText("ENDEREÇO: ");
+        jLabel55.setText("ENDEREÇO:");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -889,8 +916,11 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel_endereco_, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_endereco_, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_Salvar_tiltular__, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -934,7 +964,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(jButton_Salvar_tiltular__, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_endereco_)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_endereco_)
+                    .addComponent(jLabel55))
                 .addGap(28, 28, 28))
         );
 
@@ -942,19 +974,137 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel51.setText("USUARIOS");
 
+        kGradientPanel1.setkEndColor(new java.awt.Color(255, 255, 255));
+        kGradientPanel1.setkStartColor(new java.awt.Color(204, 204, 204));
+
+        jTextFieldNameEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setText("NOME");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setText("ENDEREÇO");
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel26.setText("IDADE");
+
+        jLabelRg1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelRg1.setText("RG");
+
+        jLabel53.setText("TELEFONE");
+
+        jTextFieldIdadeEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldIdadeEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdadeEditActionPerformed(evt);
+            }
+        });
+
+        jTextField_telefone_Edit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jTextFieldAdressEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jTextFieldRgEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel54.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel54.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel54.setText("EDITAR USUARIO");
+        jLabel54.setOpaque(true);
+
+        jButton_edit_usuario.setText("GUARDAR");
+        jButton_edit_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_edit_usuarioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
+        kGradientPanel1.setLayout(kGradientPanel1Layout);
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(7, 7, 7))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelRg1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldRgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAdressEdit)
+                    .addComponent(jTextFieldNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextFieldIdadeEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel53)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_telefone_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_edit_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldAdressEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldIdadeEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_telefone_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelRg1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldRgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addComponent(jButton_edit_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(87, 87, 87))
+                        .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(87, 87, 87))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -965,7 +1115,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 312, Short.MAX_VALUE))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("USUARIOS", jPanel2);
@@ -1954,13 +2106,32 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel_nome_titular_.setText("NOME TITULAR: "+(String) tabelaUser.getValueAt(selectedRow, 0));
 
         idUsuario = getIdUsuario(rg);
-        jLabel_endereco_.setText("Endereço: "+daoEnderecoFamilia.getEndereco(idUsuario).toUpperCase());
+        jLabel_endereco_.setText(daoEnderecoFamilia.getEndereco(idUsuario).toUpperCase());
         System.out.println("id usuario " + idUsuario);
         if (idUsuario != 0) {
             getdadosMembros(idUsuario);
             jLabelRendaFamilia.setText("" + getRenda(idUsuario));
+            jButton_edit_usuario.setEnabled(true);
         }
-
+        
+        // edit
+        for (int i = 0; i < usuariosLista.size(); i++) {
+            if(tabelaUser.getValueAt(selectedRow, 0).equals(usuariosLista.get(i).getNome())){
+            Usuarios usuarioEdit = usuariosLista.get(i);
+            
+                jTextFieldNameEdit.setText(usuarioEdit.getNome());
+                jTextFieldAdressEdit.setText(jLabel_endereco_.getText());
+                jTextFieldIdadeEdit.setText(usuarioEdit.getIdade());
+                jTextField_telefone_Edit.setText(usuarioEdit.getTelefone());
+                jTextFieldRgEdit.setText(usuarioEdit.getRg());
+            }
+        }
+        
+        for (int i = 0; i < enderecoLista.size(); i++) {
+            if(){
+                
+            }
+        }
 
     }//GEN-LAST:event_jTableFatherFamilyMouseClicked
 
@@ -2248,6 +2419,34 @@ public class MainJFrame extends javax.swing.JFrame {
        jTextField_nome_dependente__.setBorder(BorderFactory.createEtchedBorder());
     }//GEN-LAST:event_jTextField_nome_dependente__KeyReleased
 
+    private void jTextFieldIdadeEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdadeEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIdadeEditActionPerformed
+
+    private void jButton_edit_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_edit_usuarioActionPerformed
+        // edit user
+        
+        Usuarios usuariosEdit = new Usuarios(idUsuario, jTextFieldNameEdit.getText(), jTextFieldIdadeEdit.getText(),
+                jTextFieldRgEdit.getText(), jTextField_telefone_Edit.getText());
+        
+        Endereco enderecoEdit = new Endereco(idUsuario, jLabel_endereco_.getText());
+        
+        daoUsuario.updateUsuario(usuariosEdit);
+        daoEnderecoFamilia.updateEndereco(enderecoEdit);
+        
+        
+        jTextField_telefone_Edit.setText("");
+        jTextFieldNameEdit.setText("");
+        jTextFieldIdadeEdit.setText("");
+        jTextFieldAdressEdit.setText("");
+        jTextFieldRgEdit.setText("");
+        
+        /falta pegar data 
+        
+        jButton_edit_usuario.setEnabled(false);
+        
+    }//GEN-LAST:event_jButton_edit_usuarioActionPerformed
+
     //******************************************************************************************************************
     //PRODUTOS
     //******************************************************************************************************************
@@ -2490,7 +2689,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     }
 
-    private void getdados() {
+    private List<Usuarios> getdados() {
         tabelaUser.setRowCount(0);
         List<Usuarios> cliente = daoUsuario.getCliente();
 
@@ -2503,7 +2702,7 @@ public class MainJFrame extends javax.swing.JFrame {
             row[3] = cliente.get(i).getTelefone();
             tabelaUser.addRow(row);
         }
-
+        return cliente;
     }
 
     private void getdados(String dados) {
@@ -2777,6 +2976,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSaveProduct__1;
     private javax.swing.JButton jButton_Salvar_tiltular__;
     private javax.swing.JButton jButton_add_checkout_;
+    private javax.swing.JButton jButton_edit_usuario;
     private javax.swing.JButton jButton_find;
     private javax.swing.JButton jButton_save_atualizacao_higiene_;
     private javax.swing.JButton jButton_save_atualizacao_limpeza_;
@@ -2791,6 +2991,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2802,6 +3004,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -2831,6 +3034,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2844,6 +3050,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPrecoHortifruti;
     private javax.swing.JLabel jLabelRendaFamilia;
     private javax.swing.JLabel jLabelRg;
+    private javax.swing.JLabel jLabelRg1;
     private javax.swing.JLabel jLabel_endereco_;
     private javax.swing.JLabel jLabel_nao_encontrado_;
     private javax.swing.JLabel jLabel_nome_titular_;
@@ -2891,9 +3098,12 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable_product_Higiene_;
     private javax.swing.JTable jTable_product_limpeza_;
     private javax.swing.JTextField jTextFieldAdress;
+    private javax.swing.JTextField jTextFieldAdressEdit;
     private javax.swing.JTextField jTextFieldBalanca;
     private javax.swing.JTextField jTextFieldIdade;
+    private javax.swing.JTextField jTextFieldIdadeEdit;
     private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldNameEdit;
     private javax.swing.JTextField jTextFieldPeso;
     private javax.swing.JTextField jTextFieldPeso_higiene_;
     private javax.swing.JTextField jTextFieldPreco;
@@ -2902,6 +3112,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldProductHortifruti;
     private javax.swing.JTextField jTextFieldProduct_higiene_;
     private javax.swing.JTextField jTextFieldRg;
+    private javax.swing.JTextField jTextFieldRgEdit;
     private javax.swing.JTextField jTextFieldRgVenda;
     private javax.swing.JTextField jTextField_Peso_Higiene_Atualizacao_;
     private javax.swing.JTextField jTextField_Preco_Atualizacao_higiene_;
@@ -2918,6 +3129,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_product_limpeza_;
     private javax.swing.JTextField jTextField_produto_atualizacao_quantidade;
     private javax.swing.JTextField jTextField_telefone_;
+    private javax.swing.JTextField jTextField_telefone_Edit;
+    private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 
     private void checkData() {
@@ -2958,6 +3171,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         daoDataAtual.salvarDataAtual();
 
+    }
+
+    private List<Endereco> getDadosEndereco() {
+        List<Endereco> enderecoList = daoEnderecoFamilia.getEndereco();
+        return enderecoList;
     }
 
 }

@@ -1,6 +1,6 @@
 package entity;
 
-public class Usuarios {
+public class Usuarios extends Endereco{
 
     int id;
     String nome;

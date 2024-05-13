@@ -122,4 +122,19 @@ public class DaoUsuario {
 
     }
 
+    public void updateUsuario(Usuarios usuarios){
+        Connection con;
+        con = createConnections();
+        Statement st;
+        try {
+            st = con.createStatement();
+            String sql = "update pessoa set nome = '" + usuarios.getNome().toUpperCase() + "', idade = " + usuarios.getIdade() + ", rg = '"+ usuarios.getRg() + "', "
+                + " telefone = '" + usuarios.getTelefone() + "'   where id = "+usuarios.getId()+" ";
+            st.execute(sql);
+           
+        } catch (SQLException ex) {
+            System.out.println("erro ao inserir titular " + ex);
+        }
+    }
+    
 }
