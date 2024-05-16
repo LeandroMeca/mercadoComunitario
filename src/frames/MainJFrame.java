@@ -757,14 +757,14 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(99, 99, 99))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonSaveMembers__, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField_nome_dependente__, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel_nome_titular_, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel_nome_titular_, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonSaveMembers__)))
                 .addGap(15, 15, 15))
         );
         jPanel13Layout.setVerticalGroup(
@@ -964,9 +964,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(jButton_Salvar_tiltular__, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_endereco_)
-                    .addComponent(jLabel55))
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_endereco_, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
 
@@ -975,7 +975,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel51.setText("USUARIOS");
 
         kGradientPanel1.setkEndColor(new java.awt.Color(255, 255, 255));
-        kGradientPanel1.setkStartColor(new java.awt.Color(204, 204, 204));
+        kGradientPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
 
         jTextFieldNameEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -2080,7 +2080,10 @@ public class MainJFrame extends javax.swing.JFrame {
             daoConta.savarConta(id, new BigDecimal(70.00));
             daoEnderecoFamilia.saveEndereco(id, jTextFieldAdress.getText());
             JOptionPane.showMessageDialog(null, "concluido");
-            getdados();
+            
+            usuariosLista = getdados();
+            enderecoLista = getDadosEndereco();
+            
             List<Usuarios> saveUsuarioPoo = daoUsuario.saveUsuarioPoo(id, jTextFieldName.getText(), jTextFieldIdade.getText(),
                     jTextFieldRg.getText(), jTextField_telefone_.getText());
 
@@ -2107,7 +2110,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         idUsuario = getIdUsuario(rg);
         jLabel_endereco_.setText(daoEnderecoFamilia.getEndereco(idUsuario).toUpperCase());
-        System.out.println("id usuario " + idUsuario);
+      
         if (idUsuario != 0) {
             getdadosMembros(idUsuario);
             jLabelRendaFamilia.setText("" + getRenda(idUsuario));
@@ -2124,14 +2127,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 jTextFieldIdadeEdit.setText(usuarioEdit.getIdade());
                 jTextField_telefone_Edit.setText(usuarioEdit.getTelefone());
                 jTextFieldRgEdit.setText(usuarioEdit.getRg());
-            }
-        }
-        
-        for (int i = 0; i < enderecoLista.size(); i++) {
-            if(){
                 
             }
         }
+        
+       
 
     }//GEN-LAST:event_jTableFatherFamilyMouseClicked
 
@@ -2429,19 +2429,20 @@ public class MainJFrame extends javax.swing.JFrame {
         Usuarios usuariosEdit = new Usuarios(idUsuario, jTextFieldNameEdit.getText(), jTextFieldIdadeEdit.getText(),
                 jTextFieldRgEdit.getText(), jTextField_telefone_Edit.getText());
         
-        Endereco enderecoEdit = new Endereco(idUsuario, jLabel_endereco_.getText());
+        Endereco endereco = new Endereco(idUsuario,jTextFieldAdressEdit.getText() );
         
         daoUsuario.updateUsuario(usuariosEdit);
-        daoEnderecoFamilia.updateEndereco(enderecoEdit);
         
-        
+        daoEnderecoFamilia.updateEndereco(endereco);
+        usuariosLista = getdados();
+      
         jTextField_telefone_Edit.setText("");
         jTextFieldNameEdit.setText("");
         jTextFieldIdadeEdit.setText("");
         jTextFieldAdressEdit.setText("");
         jTextFieldRgEdit.setText("");
         
-        /falta pegar data 
+        
         
         jButton_edit_usuario.setEnabled(false);
         
