@@ -14,7 +14,7 @@ public class Carrinho {
     String produto;
     double peso;
     BigDecimal preco;
-    Date data;
+    String dataSaida;
 
     public String getNome() {
         return nome;
@@ -48,14 +48,15 @@ public class Carrinho {
         this.preco = preco;
     }
 
-    public Date getData() {
-        return data;
+    public String getDataSaida() {
+        return dataSaida;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataSaida(String dataSaida) {
+        this.dataSaida = dataSaida;
     }
-    
+
+  
     
     
     

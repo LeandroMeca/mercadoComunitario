@@ -27,7 +27,7 @@ public class DaoGraficos {
         Statement st;
         try {
             st = con.createStatement();
-            String sql = "SELECT sum(mercadoComunitario.produto_carrinho.preco) as valor from mercadoComunitario.produto_carrinho inner join mercadoComunitario.data_transacao as tb on month(tb.data_final) = '"+mes+"'";
+            String sql = "SELECT sum(mercadoComunitario.produto_carrinho.preco) as valor from mercadoComunitario.produto_carrinho where month(data_saida) = '"+mes+"'";
             rs = st.executeQuery(sql);
             while (rs.next()) {
                 if(mes.equals("1")){

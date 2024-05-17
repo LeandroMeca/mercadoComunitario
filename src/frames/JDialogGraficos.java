@@ -40,6 +40,7 @@ public class JDialogGraficos extends javax.swing.JDialog {
         
         
         DefaultCategoryDataset d = new DefaultCategoryDataset();
+       
         d.setValue(cliente.get(0).getJan(), "JAN", "JAN");
         d.setValue(cliente.get(0).getFev(), "FEV", "FEV");
         d.setValue(cliente.get(0).getMar(), "MAR", "MAR");
@@ -52,7 +53,7 @@ public class JDialogGraficos extends javax.swing.JDialog {
         d.setValue(cliente.get(0).getOut(), "OUT", "OUT");
         d.setValue(cliente.get(0).getNov(), "NOV", "NOV");
         d.setValue(cliente.get(0).getDez(), "DEZ", "DEZ");
-        JFreeChart g = ChartFactory.createBarChart3D("ANUAL", "f", "uttt", d, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart g = ChartFactory.createBarChart3D("ANUAL", "", "SAÍDA", d, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel f = new ChartPanel(g);
 
         jPanel1.add(f);

@@ -2261,7 +2261,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 finalizarCompra(idFk, subtract);
 
-                salvarTransacaoSaida(idFk);
+               // salvarTransacaoSaida(idFk);
 
                 salvarBaixaDoProduto(idFk, jLabelGetNome.getText(), rowCarrinho[0].toString(), Double.parseDouble(rowCarrinho[1].toString()), soma);
 
@@ -2476,7 +2476,7 @@ public class MainJFrame extends javax.swing.JFrame {
         tabelaSaida.setRowCount(0);
         List<Carrinho> cliente = daoCarrinho.getDadosCarrinho();
         if (!cliente.isEmpty()) {
-            List<Datas> dataSaidaCarrinho = daoDatas.getDataSaidaCarrinho();
+           
             Object[] row = new Object[5];
 
             for (int i = 0; i < cliente.size(); i++) {
@@ -2485,7 +2485,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 row[1] = cliente.get(i).getProduto();
                 row[2] = cliente.get(i).getPeso();
                 row[3] = cliente.get(i).getPreco();
-                row[4] = dataSaidaCarrinho.get(i).getDataSaidaString();
+                row[4] = cliente.get(i).getDataSaida();
                 tabelaSaida.addRow(row);
 
             }
@@ -2539,7 +2539,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         if (jComboBoxOpcaoProduto.getSelectedItem().equals("LIMPEZA")) {
             jTableProdutoSaida.getColumnModel().getColumn(1).setHeaderValue("UNID");
-            limpeza = daoLimpeza.getProdutoCadastrados();
+            limpeza = daoLimpeza.getProduto();
             Object[] row = new Object[3];
             for (int i = 0; i < limpeza.size(); i++) {
 
@@ -2895,7 +2895,7 @@ public class MainJFrame extends javax.swing.JFrame {
         Statement st;
         try {
             st = con.createStatement();
-            String sql = "insert into produto_carrinho(idfk,usuario,nome,peso,preco) values(" + idFk + ",'" + usuario + "','" + produto + "'," + peso + "," + precos + ")";
+            String sql = "insert into produto_carrinho(idfk,usuario,nome,peso,preco,data_saida) values(" + idFk + ",'" + usuario + "','" + produto + "'," + peso + "," + precos + ",'"+LocalDateTime.now()+"')";
             st.execute(sql);
 
         } catch (SQLException ex) {
@@ -3163,12 +3163,12 @@ public class MainJFrame extends javax.swing.JFrame {
         if (checkData == null) {
             checkData = "00";
         }
-
+        
         int parseInt = Integer.parseInt(checkData); // ultima data inserida no banco
         int monthValue = LocalDateTime.now().getMonthValue(); //data atual
 
         if (parseInt != monthValue) {
-            System.out.println("igual");
+            JOptionPane.showMessageDialog(null, "CRÉDITOS RENOVADOS ");
             List<Usuarios> cliente = daoUsuario.getCliente();
 
             for (int i = 0; i < cliente.size(); i++) {
