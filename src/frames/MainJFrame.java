@@ -35,6 +35,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class MainJFrame extends javax.swing.JFrame {
 
@@ -44,8 +49,7 @@ public class MainJFrame extends javax.swing.JFrame {
     boolean controllerBtn;
 
     Object[] rowCarrinho;
-    
-    
+
     List<Usuarios> usuariosLista;
     List<Endereco> enderecoLista;
 
@@ -82,7 +86,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-        
+
         initComponentDisable();
 
         initDao();
@@ -126,11 +130,10 @@ public class MainJFrame extends javax.swing.JFrame {
         usuariosLista = getdados();
         enderecoLista = getDadosEndereco();
 
-        checkData();
+        checkData(); 
     }
-    
-    
-    private void initComponentDisable(){
+
+    private void initComponentDisable() {
         jButton_edit_usuario.setEnabled(false);
     }
 
@@ -180,6 +183,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableSaida = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -658,6 +662,13 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel52.setText("CHECKOUT");
 
+        jButton1.setText("GRAFICOS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -666,12 +677,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(55, 55, 55))
@@ -682,10 +695,15 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(41, 41, 41)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2080,10 +2098,10 @@ public class MainJFrame extends javax.swing.JFrame {
             daoConta.savarConta(id, new BigDecimal(70.00));
             daoEnderecoFamilia.saveEndereco(id, jTextFieldAdress.getText());
             JOptionPane.showMessageDialog(null, "concluido");
-            
+
             usuariosLista = getdados();
             enderecoLista = getDadosEndereco();
-            
+
             List<Usuarios> saveUsuarioPoo = daoUsuario.saveUsuarioPoo(id, jTextFieldName.getText(), jTextFieldIdade.getText(),
                     jTextFieldRg.getText(), jTextField_telefone_.getText());
 
@@ -2106,38 +2124,37 @@ public class MainJFrame extends javax.swing.JFrame {
         int selectedRow = jTableFatherFamily.getSelectedRow();
 
         String rg = (String) tabelaUser.getValueAt(selectedRow, 2);
-        jLabel_nome_titular_.setText("NOME TITULAR: "+(String) tabelaUser.getValueAt(selectedRow, 0));
+        jLabel_nome_titular_.setText("NOME TITULAR: " + (String) tabelaUser.getValueAt(selectedRow, 0));
 
         idUsuario = getIdUsuario(rg);
         jLabel_endereco_.setText(daoEnderecoFamilia.getEndereco(idUsuario).toUpperCase());
-      
+
         if (idUsuario != 0) {
             getdadosMembros(idUsuario);
             jLabelRendaFamilia.setText("" + getRenda(idUsuario));
             jButton_edit_usuario.setEnabled(true);
         }
-        
+
         // edit
         for (int i = 0; i < usuariosLista.size(); i++) {
-            if(tabelaUser.getValueAt(selectedRow, 0).equals(usuariosLista.get(i).getNome())){
-            Usuarios usuarioEdit = usuariosLista.get(i);
-            
+            if (tabelaUser.getValueAt(selectedRow, 0).equals(usuariosLista.get(i).getNome())) {
+                Usuarios usuarioEdit = usuariosLista.get(i);
+
                 jTextFieldNameEdit.setText(usuarioEdit.getNome());
                 jTextFieldAdressEdit.setText(jLabel_endereco_.getText());
                 jTextFieldIdadeEdit.setText(usuarioEdit.getIdade());
                 jTextField_telefone_Edit.setText(usuarioEdit.getTelefone());
                 jTextFieldRgEdit.setText(usuarioEdit.getRg());
-                
+
             }
         }
-        
-       
+
 
     }//GEN-LAST:event_jTableFatherFamilyMouseClicked
 
     private void jButtonSaveMembers__ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveMembers__ActionPerformed
 
-        if (!jTextField_nome_dependente__.getText().equals("") && idUsuario!=0) {
+        if (!jTextField_nome_dependente__.getText().equals("") && idUsuario != 0) {
             jButtonSaveMembers__.setEnabled(false);
             daoUsuarioMembro.saveUsuarioMembro(idUsuario, jTextField_nome_dependente__.getText());
 
@@ -2149,7 +2166,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 updateConta(idUsuario, new BigDecimal(70.00));
             }
             JOptionPane.showMessageDialog(null, "Cadastrado");
-        }else{
+        } else {
             jTextField_nome_dependente__.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "DIITE O NOME");
         }
@@ -2351,7 +2368,7 @@ public class MainJFrame extends javax.swing.JFrame {
         daoHigienePessoal.saveProdutoHigienePessoal(jTextFieldProduct_higiene_.getText(), Double.parseDouble(jTextFieldPeso_higiene_.getText()),
                 new BigDecimal(jTextField_preco_higiene_.getText()));
         daoHigienePessoal.saveProdutoCadastrados_higiene(1, jTextFieldProduct_higiene_.getText(), Double.parseDouble(jTextFieldPeso_higiene_.getText()), new BigDecimal(jTextField_preco_higiene_.getText()));
-        
+
         getdadosProdutosCadastradosHigiene();
         getdadosTodosProdutos();
         getdadosProdutosHigiene();
@@ -2415,8 +2432,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRgVendaKeyReleased
 
     private void jTextField_nome_dependente__KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nome_dependente__KeyReleased
-       //trandform field border default
-       jTextField_nome_dependente__.setBorder(BorderFactory.createEtchedBorder());
+        //trandform field border default
+        jTextField_nome_dependente__.setBorder(BorderFactory.createEtchedBorder());
     }//GEN-LAST:event_jTextField_nome_dependente__KeyReleased
 
     private void jTextFieldIdadeEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdadeEditActionPerformed
@@ -2425,28 +2442,32 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton_edit_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_edit_usuarioActionPerformed
         // edit user
-        
+
         Usuarios usuariosEdit = new Usuarios(idUsuario, jTextFieldNameEdit.getText(), jTextFieldIdadeEdit.getText(),
                 jTextFieldRgEdit.getText(), jTextField_telefone_Edit.getText());
-        
-        Endereco endereco = new Endereco(idUsuario,jTextFieldAdressEdit.getText() );
-        
+
+        Endereco endereco = new Endereco(idUsuario, jTextFieldAdressEdit.getText());
+
         daoUsuario.updateUsuario(usuariosEdit);
-        
+
         daoEnderecoFamilia.updateEndereco(endereco);
         usuariosLista = getdados();
-      
+
         jTextField_telefone_Edit.setText("");
         jTextFieldNameEdit.setText("");
         jTextFieldIdadeEdit.setText("");
         jTextFieldAdressEdit.setText("");
         jTextFieldRgEdit.setText("");
-        
-        
-        
+
         jButton_edit_usuario.setEnabled(false);
-        
+
     }//GEN-LAST:event_jButton_edit_usuarioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JDialogGraficos graficos = new JDialogGraficos(this, true);
+        graficos.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     //******************************************************************************************************************
     //PRODUTOS
@@ -2718,7 +2739,7 @@ public class MainJFrame extends javax.swing.JFrame {
         for (int i = 0; i < usuarioMembro.size(); i++) {
 
             row[0] = usuarioMembro.get(i).getNomeMembro();
-           
+
             tabelaMembro.addRow(row);
             a += 1;
         }
@@ -2968,6 +2989,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonFinalizarCompra__;
     private javax.swing.JButton jButtonProdutoHortifrutiAtualizacao;
@@ -3178,5 +3200,7 @@ public class MainJFrame extends javax.swing.JFrame {
         List<Endereco> enderecoList = daoEnderecoFamilia.getEndereco();
         return enderecoList;
     }
+
+    
 
 }
