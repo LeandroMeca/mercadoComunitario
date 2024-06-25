@@ -1,28 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package frames;
 
 import dao.DaoLogin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
-/**
- *
- * @author Leandro
- */
 public class LoginJFrame extends javax.swing.JFrame {
 
+    Thread t;
     DaoLogin daoLogin;
-    
+    private LoginJFrame.Daemon the = null;
+
     public LoginJFrame() {
         initComponents();
+       
         daoLogin = new DaoLogin();
+
     }
 
-
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,6 +33,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel_nao_encontrado_ = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -126,6 +123,10 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(163, 163, 163))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(135, 135, 135))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,13 +141,15 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(11, 11, 11)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addComponent(jLabel_nao_encontrado_, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,16 +174,33 @@ public class LoginJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         boolean valid = daoLogin.getCliente(jTextFieldName.getText(), new String(jPasswordField.getPassword()));
-        if(valid){
+        if (valid) {
+
             MainJFrame frame = new MainJFrame();
+
+            new Thread() {
+                @Override
+                public void run() {
+                    the = new LoginJFrame.Daemon(jProgressBar1);
+                    t = new Thread(the);
+                    t.setDaemon(true);
+                    the.runnable = true;
+
+                    t.start();
+                }
+
+            }.start();
+
             frame.setVisible(true);
             dispose();
-        }else{
+        } else {
             jLabel_nao_encontrado_.setText("NÃO ENCONTRADO !!!!");
             JOptionPane.showMessageDialog(null, "LOGIN NÃO ENCONTRADO");
         }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNameKeyReleased
@@ -188,7 +208,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNameKeyReleased
 
     private void jPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldKeyReleased
-       jLabel_nao_encontrado_.setText("");
+        jLabel_nao_encontrado_.setText("");
     }//GEN-LAST:event_jPasswordFieldKeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -232,6 +252,35 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
     }
 
+    public class Daemon implements Runnable {
+
+        JProgressBar dd;
+        int bar = 0;
+
+        public Daemon(JProgressBar progress) {
+            dd = progress;
+        }
+
+        protected volatile boolean runnable = false;
+
+        @Override
+        public void run() {
+            synchronized (this) {
+                try {
+                    for (int i=0; i<=100; i++) {
+                        Thread.sleep(1);
+                        bar = i;
+                        dd.setValue(bar);
+
+                    }
+                } catch (InterruptedException ex) {
+
+                }
+            }
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -242,6 +291,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_nao_encontrado_;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 }

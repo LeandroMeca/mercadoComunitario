@@ -22,6 +22,7 @@ import entity.UsuarioMembro;
 import entity.Usuarios;
 import static factory.Conections.createConnections;
 import java.awt.Color;
+import java.awt.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -130,7 +131,7 @@ public class MainJFrame extends javax.swing.JFrame {
         usuariosLista = getdados();
         enderecoLista = getDadosEndereco();
 
-        checkData(); 
+        checkData();
     }
 
     private void initComponentDisable() {
@@ -178,6 +179,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableCarrinho = new javax.swing.JTable();
         jButtonFinalizarCompra__ = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableSaida = new javax.swing.JTable();
@@ -324,6 +326,12 @@ public class MainJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(1280, 768));
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -575,6 +583,19 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 0, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("REMOVER");
+        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton2.setContentAreaFilled(false);
+        jButton2.setOpaque(true);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -587,7 +608,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonFinalizarCompra__, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonFinalizarCompra__, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -598,7 +621,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonFinalizarCompra__, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonFinalizarCompra__, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -1091,7 +1117,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldIdadeEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1133,9 +1159,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 312, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("USUARIOS", jPanel2);
@@ -2208,6 +2234,8 @@ public class MainJFrame extends javax.swing.JFrame {
         rowCarrinho[0] = produto;
         rowCarrinho[1] = peso;
         rowCarrinho[2] = preco;
+
+
     }//GEN-LAST:event_jTableProdutoSaidaMouseClicked
 
     private void jButton_add_checkout_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_add_checkout_ActionPerformed
@@ -2218,6 +2246,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 pesoBalanca = 1.0;
             } else {
                 pesoBalanca = Double.parseDouble(jTextFieldBalanca.getText());
+
             }
             String nomeProduto = rowCarrinho[0].toString();
             BigDecimal valor = new BigDecimal(rowCarrinho[2].toString());
@@ -2231,16 +2260,23 @@ public class MainJFrame extends javax.swing.JFrame {
 
             if (jComboBoxOpcaoProduto.getSelectedItem().equals("HORTIFRUTI")) {
                 rowCarrinho[1] = jTextFieldBalanca.getText();
+                tabelaProdutoSaida.removeRow(idParaRemoverRow);
             } else {
 
             }
 
             tabelaCarrinho.addRow(rowCarrinho);
+            tabelaProdutoSaida.removeRow(idParaRemoverRow);
             if (jTextFieldBalanca.getText() != null) {
                 jTextFieldBalanca.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "POR FAVOR BUSQUE O USUARIO !!!");
+            getdadosProdutosSaida();
+            getdadosTodosProdutos();
+            getdadosProdutosCadastradosPereciveis();
+            getdadosProdutosPereciveis();
+            getdadosProdutosLimpeza();
         }
     }//GEN-LAST:event_jButton_add_checkout_ActionPerformed
 
@@ -2261,14 +2297,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 finalizarCompra(idFk, subtract);
 
-               // salvarTransacaoSaida(idFk);
-
+                // salvarTransacaoSaida(idFk);
                 salvarBaixaDoProduto(idFk, jLabelGetNome.getText(), rowCarrinho[0].toString(), Double.parseDouble(rowCarrinho[1].toString()), soma);
 
                 baixaProduto();
 
                 tabelaCarrinho.setRowCount(0);
-                tabelaCarrinho.setRowCount(0);
+
 
                 getdadosProdutosSaida();
                 getdadosTodosProdutos();
@@ -2276,10 +2311,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 getdadosProdutosPereciveis();
                 getdadosProdutosLimpeza();
 
+                jLabelGetNome.setText("NOME");
+                jLabelGetValor.setText("VALOR");
+
                 JOptionPane.showMessageDialog(null, "FINALIZADO");
 
             } else {
+
                 JOptionPane.showMessageDialog(null, "FICOU FALTANDO " + subtract.abs() + " REAIS");
+                getdadosTodosProdutos();
+                tabelaCarrinho.setRowCount(0);
             }
         } else {
             JOptionPane.showMessageDialog(null, "ADICIONAR UM ITEM AO CARRINHO PARA REALIZAR A COMPRA");
@@ -2469,6 +2510,26 @@ public class MainJFrame extends javax.swing.JFrame {
         graficos.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+
+        if (!jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex()).equals("CHECKOUT")) {
+
+            getdadosTodosProdutos();
+
+            tabelaCarrinho.setRowCount(0);
+            jLabelGetNome.setText("NOME");
+            jLabelGetValor.setText("VALOR");
+        }
+
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //remove product
+        tabelaCarrinho.setRowCount(0);
+        getdadosTodosProdutos();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     //******************************************************************************************************************
     //PRODUTOS
     //******************************************************************************************************************
@@ -2476,7 +2537,7 @@ public class MainJFrame extends javax.swing.JFrame {
         tabelaSaida.setRowCount(0);
         List<Carrinho> cliente = daoCarrinho.getDadosCarrinho();
         if (!cliente.isEmpty()) {
-           
+
             Object[] row = new Object[5];
 
             for (int i = 0; i < cliente.size(); i++) {
@@ -2895,7 +2956,7 @@ public class MainJFrame extends javax.swing.JFrame {
         Statement st;
         try {
             st = con.createStatement();
-            String sql = "insert into produto_carrinho(idfk,usuario,nome,peso,preco,data_saida) values(" + idFk + ",'" + usuario + "','" + produto + "'," + peso + "," + precos + ",'"+LocalDateTime.now()+"')";
+            String sql = "insert into produto_carrinho(idfk,usuario,nome,peso,preco,data_saida) values(" + idFk + ",'" + usuario + "','" + produto + "'," + peso + "," + precos + ",'" + LocalDateTime.now() + "')";
             st.execute(sql);
 
         } catch (SQLException ex) {
@@ -2990,6 +3051,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonFinalizarCompra__;
     private javax.swing.JButton jButtonProdutoHortifrutiAtualizacao;
@@ -3163,7 +3225,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if (checkData == null) {
             checkData = "00";
         }
-        
+
         int parseInt = Integer.parseInt(checkData); // ultima data inserida no banco
         int monthValue = LocalDateTime.now().getMonthValue(); //data atual
 
@@ -3200,7 +3262,7 @@ public class MainJFrame extends javax.swing.JFrame {
         List<Endereco> enderecoList = daoEnderecoFamilia.getEndereco();
         return enderecoList;
     }
-
     
+   
 
 }
