@@ -32,8 +32,8 @@
         +Date departureDate
     }
     
-    User "1" --> "1" UserWallet : has
-    Product "1" --> "1" AmountProduct : has
-    Checkout "1" --> "1" User : involves
-    Checkout "1" --> "1" Product : includes
+    User "1" *-- "1" UserWallet : has
+    Product "1" *-- "1" AmountProduct : has
+    Checkout "1" *-- "1" User : involves
+    Checkout "1" *-- "1" Product : includes
 ```
